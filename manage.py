@@ -12,10 +12,23 @@ app.config["SECRET_KEY"] = "fjkdjfkdfjdkdfdafdadfa"
 def index():
     return render_template('login.html')
 
-@app.route('/register')
+@app.route('/register',methods=['POST','GET'])
 def register():
+    if request.method=='GET':
+        return render_template('register.html')
+    else:
+        uname = request.form.get('uname')
+        pwd = request.form.get('pwd')
+        pwd2 = request.form.get('pwd2')
+        print(uname)
+        print(pwd)
 
-    return render_template('register.html')
+        # 后期连接数据库保存到数据库
+        return render_template('index.html',uname=uname)
+
+
+
+
 
 @app.route('/check',methods=['POST'])
 def login():
