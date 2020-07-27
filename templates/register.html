@@ -9,9 +9,8 @@
 	</style>
 </head>
 <body>
-	<h1>登录页面</h1>
-    <a href="/register">注册</a>
-	<form action="/check" method="post">
+	<h1>注册页面</h1>
+	<form action="/register" method="post">
         <!--3.前端加入令牌隐藏域(自动显示后端随机生成的cookie信息)-->
          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 		<div class="row">
@@ -25,13 +24,18 @@
 			<input type="text" name="pwd" id="pwd" class="bitian" />
 			<span class="msg"></span>
 		</div>
+        <div class="row">
+			<label for="pwd">确认密码:</label>
+			<input type="text" name="pwd" id="pwd" class="bitian" />
+			<span class="msg"></span>
+		</div>
 		<input type="submit" value="提交"/>
 	</form>
 	<h1 class="error" >请填写用户名和密码</h1>
     <h1>{{ errmsg }}</h1>
 
 
-	
+
 	<script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
@@ -43,7 +47,7 @@
 					$(this).next("span").html('*')
 				}
 			})
-			
+
 			//2. 必填项如果有空,禁止提交的!
 			$("form").submit(function(){
 				var isGo = true; //是否跳转标记
@@ -61,7 +65,7 @@
 			//3. 失去焦点或改变事件或键盘抬起事件
 			$('form :input').blur(function(){
 				$(this).next('span').html("") //去掉*号
-				
+
 				//用户名
 				if($(this).is('#uname')){
 					var uname = $(this).val().trim();//去掉左右空格
@@ -79,7 +83,7 @@
 					console.log(pwd)
 					//密码强度正则，最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符
 					var regPwd = /^.*(?=.{6,})(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*? ]).*$/;
-				
+
 					if(pwd.length<6 || regPwd.test(pwd)==false){
 						$(this).next('span').html('最少6位，包括至少1个大写字母，1个小写字母，1个数字，1个特殊字符')
 					}else{
@@ -90,9 +94,9 @@
 				//直接调用blur事件
 				$(this).triggerHandler('blur');
 			})
-			
-			
-			
+
+
+
 		})
 	</script>
 </body>
